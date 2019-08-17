@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.student.dao.IStudentDao">
+	<insert id="insertStudent" parameterType="Student">
+		insert into student (name,age) values (#{name},#{age})
+	</insert>
+	<select id="selectName" resultType="Student">
+		select name,age from student
+	</select>
+	<select id="mapperStudent" resultType="String">
+		select name from student where name=#{name}
+	</select>
+	<select id="mapperallstudent" resultType="Student">
+		select name,age from student where name=#{name} and age=#{age}
+	</select>
+	<select id="findidalll" resultType="Student">
+		select * from student where name=#{name}
+	</select>
+	
+	<!-- 分页 -->
+	<insert id="addpage" >
+		insert into massages (id,img,test,html) values (#{id},#{img},#{test},#{html})
+	</insert>
+	
+	<select id="findallmsg" resultType="Page">
+		select img,test from massages limit ${jk1},${jk2} 
+	</select>
+	
+	<select id="countnum" resultType="Integer">
+		select count(*) from massages
+	</select>
+	<!-- 富文本内容 -->
+	<insert id="addhtml" >
+		insert into massages (html) values (#{html})
+	</insert>
+	<!-- 获取内容 -->
+	<select id="xiansi" resultType="Page">
+		 select test,html from massages limit ${finddates},1
+		<!-- select html from (select row_number() over (order by id) as rowNum,* from massages) as t where rowNum =#{finddates} -->
+				
+	</select>
+</mapper>
